@@ -4,6 +4,9 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.timeOut = container.querySelector('.status__timeOut');
+    this.seconds = 0;
+    this.interval = 0;
 
     this.reset();
 
@@ -23,7 +26,19 @@ class Game {
       на каждый введённый символ.
       В случае правильного ввода слова вызываем this.success()
       При неправильном вводе символа - this.fail();
-     */
+     */   
+    this.interval = setInterval(() => {
+      if (--this.timeOut.textContent < 0) {
+        this.fail();
+      }
+    }, 1000);
+    document.onkeyup = () => {
+        if (event.key === this.currentSymbol.textContent.toLowerCase()) {
+          this.success();
+        } else {
+          this.fail();
+        };
+    };
   }
 
   success() {
@@ -44,12 +59,15 @@ class Game {
     if (++this.lossElement.textContent === 5) {
       alert('Вы проиграли!');
       this.reset();
+      clearInterval(this.interval);
     }
     this.setNewWord();
   }
 
   setNewWord() {
     const word = this.getWord();
+    this.timeOut.textContent = word.length;
+    this.seconds = word.length;
 
     this.renderWord(word);
   }
@@ -87,4 +105,3 @@ class Game {
 }
 
 new Game(document.getElementById('game'))
-
