@@ -29,7 +29,7 @@ function addTask(event) {
     event.preventDefault();
 };
 
-function buttonAddTask(event) {    
+function buttonAddTask() {    
     if (inputTask.value) {   
         createTask();
         inputTask.value = "";                
