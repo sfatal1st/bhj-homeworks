@@ -1,5 +1,6 @@
 const inputTask = document.querySelector(".tasks__input");
 const tasksList = document.getElementsByClassName("tasks__list")[0];
+const formSubmit = document.querySelector(".tasks__control"); 
 
 function createTask() {
     let divTask = document.createElement("div");
@@ -20,10 +21,22 @@ function createTask() {
     })
 }
 
-inputTask.addEventListener("keyup", (event) => {       
+function addTask(event) {    
     if ((event.key === "Enter" ) && (inputTask.value)){   
         createTask();
         inputTask.value = "";                
     };
     event.preventDefault();
-});
+};
+
+function buttonAddTask(event) {    
+    if (inputTask.value) {   
+        createTask();
+        inputTask.value = "";                
+    };
+    event.preventDefault();
+};
+
+inputTask.addEventListener("keyup", addTask);
+
+formSubmit.addEventListener("submit", buttonAddTask);
