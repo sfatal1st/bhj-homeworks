@@ -5,9 +5,5 @@ editor.addEventListener("keyup", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.text) {
-        editor.value = localStorage.text;
-    } else {
-        editor.value = "";
-    }
+    editor.value = localStorage.getItem("text");
 });
